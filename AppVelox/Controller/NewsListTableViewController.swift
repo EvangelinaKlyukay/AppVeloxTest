@@ -7,47 +7,50 @@
 //
 
 import UIKit
-import FeedKit
 
 class NewsListTableViewController: UITableViewController {
     
-    private var rssItems: [News]?
     
-    //var items = [String]()
+    private var rssItems: [News]?
+    private let loadParser = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.refreshControl = myRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         fetchData()
     }
     
+    @objc func refresh(_ sender : AnyObject) {
+        fetchData()
+    }
+    
     private func fetchData() {
-        let feedParser = FeedParser()
-        feedParser.parseFeed(url: "http://www.vesti.ru/vesti.rss") { (rssItems) in
+        loadParser.parseFeed(url: "http://www.vesti.ru/vesti.rss") { (rssItems) in
             self.rssItems = rssItems
             
-            OperationQueue.main.addOperation {
-                self.tableView.reloadSections(IndexSet(integer: 0), with: .left)
-            }
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .middle)
+                self.refreshControl?.endRefreshing()
+            } 
         }
     }
     
-    let myRefreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
-        return refreshControl
-    }()
-    
-    @objc private func refresh(sender: UIRefreshControl) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        tableView.reloadData()
-        sender.endRefreshing()
+        if segue.identifier == "showNews" {
+            let newsController = segue.destination as! NewsViewController
+            newsController.news = sender as? News
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let item = rssItems?[indexPath.item]
+        self.performSegue(withIdentifier: "showNews", sender: item)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,13 +63,13 @@ class NewsListTableViewController: UITableViewController {
         }
         return rssItems.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewsListTableViewCell
         
         if let item = rssItems?[indexPath.item] {
             cell.item = item
         }
-        
         return cell
     }
 }

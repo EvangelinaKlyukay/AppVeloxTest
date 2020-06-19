@@ -22,7 +22,7 @@ class NewsViewController: UIViewController {
         if let news = news {
             titleLabel.text = news.title
             descriptionLabel.text = news.description
-            if let imageUrl = news.enclosure {
+            if let imageUrl = URL(string: news.enclosure) {
                 imageNews.load(url: imageUrl)
             }
         }

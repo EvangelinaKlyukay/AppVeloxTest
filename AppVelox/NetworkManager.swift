@@ -41,11 +41,11 @@ class NetworkManager: NSObject, XMLParserDelegate {
         }
     }
     
-//    private var currentEnclosure: String = "" {
-//        didSet {
-//            currentEnclosure = currentEnclosure.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-//        }
-//    }
+    private var currentEnclosure: String = "" {
+        didSet {
+            currentEnclosure = currentEnclosure.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
     
     private var parserCompletionHandler: (([News]) -> Void)?
     
@@ -75,7 +75,11 @@ class NetworkManager: NSObject, XMLParserDelegate {
             currentTitle = ""
             currentPubData = ""
             currentDescription = ""
-            //currentEnclosure = ""
+        }
+        if currentElement == "enclosure" {
+            if let url = attributeDict["url"] {
+                currentEnclosure = url
+            }
         }
     }
     
@@ -84,7 +88,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
         case "title": currentTitle += string
         case "pubDate": currentPubData += string
         case "yandex:full-text": currentDescription += string
-        //case "enclosure": currentEnclosure += string
+        case "enclosure": currentEnclosure += string
             
         default: break
         }
@@ -92,7 +96,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = News(title: currentTitle, pubDate: currentPubData, description: currentDescription)
+            let rssItem = News(title: currentTitle, pubDate: currentPubData, enclosure: currentEnclosure, description: currentDescription)
             self.rssItems.append(rssItem)
         }
     }

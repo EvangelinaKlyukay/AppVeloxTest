@@ -11,9 +11,9 @@ import Foundation
 
 struct News {
     
-    var title: String?
-    var pubDate: String?
-    var enclosure: URL?
-    var description: String?
+    var title: String
+    var pubDate: String
+    var enclosure: String
+    var description: String
 
 }
