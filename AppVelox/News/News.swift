@@ -11,13 +11,9 @@ import Foundation
 
 struct News {
     
-    var title: String
-    var pubDate: String
-    
-//    init(data: [String: Any]) {
-//
-//        self.title = data["title"] as? String
-//        self.pubDate = data["pubDate"] as? String
-//
-//    }
+    var title: String?
+    var pubDate: String?
+    var enclosure: URL?
+    var description: String?
+
 }
