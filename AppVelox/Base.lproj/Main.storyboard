@@ -69,10 +69,10 @@
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Category"/>
+                                <connections>
+                                    <action selector="categoryPicker:" destination="iCf-wD-TIS" eventType="touchUpInside" id="Jic-h5-L9E"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="categoryPicker:" destination="iCf-wD-TIS" id="gWc-yr-udL"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="mTt-0R-6p1">
