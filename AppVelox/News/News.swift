@@ -15,5 +15,6 @@ struct News {
     var pubDate: String
     var enclosure: String
     var description: String
+    var category: String
 
 }

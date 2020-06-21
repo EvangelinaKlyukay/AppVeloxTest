@@ -14,7 +14,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
     
     private var rssItems: [News] = []
     private var currentElement = ""
-
+    
     override init() {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -47,6 +47,12 @@ class NetworkManager: NSObject, XMLParserDelegate {
         }
     }
     
+    private var currentCategory: String = "" {
+        didSet {
+            currentCategory = currentCategory.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    
     private var parserCompletionHandler: (([News]) -> Void)?
     
     func parseFeed(url: String, completionHandler: (([News]) -> Void)?) {
@@ -75,6 +81,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
             currentTitle = ""
             currentPubData = ""
             currentDescription = ""
+            currentCategory = ""
         }
         if currentElement == "enclosure" {
             if let url = attributeDict["url"] {
@@ -89,6 +96,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
         case "pubDate": currentPubData += string
         case "yandex:full-text": currentDescription += string
         case "enclosure": currentEnclosure += string
+        case "category": currentCategory += string
             
         default: break
         }
@@ -96,7 +104,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = News(title: currentTitle, pubDate: currentPubData, enclosure: currentEnclosure, description: currentDescription)
+            let rssItem = News(title: currentTitle, pubDate: currentPubData, enclosure: currentEnclosure, description: currentDescription, category: currentCategory)
             self.rssItems.append(rssItem)
         }
     }
