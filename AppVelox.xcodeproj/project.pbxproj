@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,6 @@
 		A66D8C552497980E00D777EB /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66D8C542497980E00D777EB /* NewsViewController.swift */; };
 		A66D8C602497BA5300D777EB /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66D8C5F2497BA5300D777EB /* News.swift */; };
 		A66D8C652498BBF000D777EB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66D8C642498BBEF00D777EB /* NetworkManager.swift */; };
-		A66D8C6A2498F6A400D777EB /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = A66D8C692498F6A400D777EB /* FeedKit */; };
 		A6CB1BD2249A3D6900701EE3 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CB1BD1249A3D6900701EE3 /* WebImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A66D8C6A2498F6A400D777EB /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +72,7 @@
 				A66D8C3B24976A9A00D777EB /* SceneDelegate.swift */,
 				A66D8C562497987E00D777EB /* Controller */,
 				A66D8C632497C00300D777EB /* News */,
-				A66D8C642498BBEF00D777EB /* NetworkManager.swift */,
+				A6CB1BD3249FBBD700701EE3 /* Network */,
 				A66D8C3F24976A9A00D777EB /* Main.storyboard */,
 				A66D8C4524976AA000D777EB /* Assets.xcassets */,
 				A66D8C4724976AA000D777EB /* LaunchScreen.storyboard */,
@@ -90,7 +88,6 @@
 				A66D8C3D24976A9A00D777EB /* NewsListTableViewController.swift */,
 				A66D8C5224978E0D00D777EB /* NewsListTableViewCell.swift */,
 				A66D8C542497980E00D777EB /* NewsViewController.swift */,
-				A6CB1BD1249A3D6900701EE3 /* WebImageView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -101,6 +98,15 @@
 				A66D8C5F2497BA5300D777EB /* News.swift */,
 			);
 			path = News;
+			sourceTree = "<group>";
+		};
+		A6CB1BD3249FBBD700701EE3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A66D8C642498BBEF00D777EB /* NetworkManager.swift */,
+				A6CB1BD1249A3D6900701EE3 /* WebImageView.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +126,6 @@
 			);
 			name = AppVelox;
 			packageProductDependencies = (
-				A66D8C692498F6A400D777EB /* FeedKit */,
 			);
 			productName = App;
 			productReference = A66D8C3624976A9A00D777EB /* AppVelox.app */;
@@ -151,7 +156,6 @@
 			);
 			mainGroup = A66D8C2D24976A9A00D777EB;
 			packageReferences = (
-				A66D8C682498F6A400D777EB /* XCRemoteSwiftPackageReference "FeedKit" */,
 			);
 			productRefGroup = A66D8C3724976A9A00D777EB /* Products */;
 			projectDirPath = "";
@@ -388,25 +392,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		A66D8C682498F6A400D777EB /* XCRemoteSwiftPackageReference "FeedKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nmdias/FeedKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.1.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A66D8C692498F6A400D777EB /* FeedKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A66D8C682498F6A400D777EB /* XCRemoteSwiftPackageReference "FeedKit" */;
-			productName = FeedKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A66D8C4224976A9A00D777EB /* App.xcdatamodeld */ = {
